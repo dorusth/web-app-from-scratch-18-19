@@ -1,0 +1,43 @@
+main{
+	font-family: sans-serif;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+article{
+	width: 30%;
+	min-width: 20em;
+	padding: 2em 1em;
+	margin-top: 5em;
+	border-bottom: 1px solid lightgray;
+}
+
+article a{
+	color: black;
+	text-decoration: none;
+}
+
+article h2{
+	position: relative;
+	display: inline;
+	
+}
+
+article h2::before{
+	content: "";
+	position: absolute;
+	height: 4px;
+	width: 0px;
+	background-color: darkgrey;
+	bottom: -.2em;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+article h2:hover::before{
+	width: 100%;
+}
