@@ -45,3 +45,5 @@ For this project the [GitHub API](https://developer.github.com/v3/) to get the d
 - [ ] manipulate Data
 
 <!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
+
+[MIT](LICENCE) © [Dorus ten Haaf](https://dorustenhaaf.com)
