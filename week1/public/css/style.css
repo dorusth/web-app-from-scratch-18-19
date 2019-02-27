@@ -9,6 +9,12 @@ h1{
 	text-align: center;
 }
 
+h3{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
 article{
 	width: 30%;
 	min-width: 20em;
