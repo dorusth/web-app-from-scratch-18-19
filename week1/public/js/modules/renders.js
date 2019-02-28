@@ -1,50 +1,67 @@
 const renders = {
 	element: document.querySelector("main"),
 	repos(data){
-		let template = function(repo, i){
+		let template = data.map((repo, i)=>{
 			return (`
 				<article>
-					<a class="link" href="#user/${repo.owner.login}/${i}/open">
-						<h2> ${repo.name}</h2>
-					 </a>
-					 <p> User: ${repo.owner.login}</p>
-					 <p> Open issues: ${repo.open_issues_count} </p>
+					<div>
+						<a class="link" href="#user/${repo.owner.login}/${i}/open">
+							<h2> ${repo.owner.login}</h2>
+						 </a>
+						 <p> Repo name: ${repo.name}</p>
+						 <p> Open issues: ${repo.open_issues_count} </p>
+					</div>
+					<img src="${repo.owner.avatar_url}">
 				 </article>
 			 `)
-		};
-
-		this.element.innerHTML = "";
-		data.forEach((repo,i) =>{
-			let renderTemplate = template(repo,i);
-			this.element.innerHTML += renderTemplate;
 		})
+		this.element.innerHTML = template.join('');
 	},
 	issues(data){
-		let template = function(repo, i){
-			return (`
-				<article>
-					<a class="link" href="${repo.html_url}">
-						<h2> ${repo.title}</h2>
-					 </a>
-					 <p> User: ${repo.user.login}</p>
-					 <p> last commit: ${repo.created_at} </p><p>${repo.state}</p>
+		function mapIssues(issue){
+			return(`
+				<article class="issue">
+					<div>
+						<a class="link" target="_blank" href="${issue.html_url}">
+							<h2> ${issue.title}</h2>
+						 </a>
+						 <p> User: ${issue.user.login}</p>
+						 <p> last commit: ${issue.created_at} </p><p>${issue.state}</p>
+					</div>
 				 </article>
 			 `)
-		};
+		}
+		if(data.open.length > 0){
+			this.element.innerHTML = `<h3>Open issues</h3>`;
+			this.element.innerHTML += data.open.map(mapIssues).join('');
+		}else{
+			this.element.innerHTML = `<h3>there are no open issues 👍</h3>`;
+		}
 
-		this.element.innerHTML = "<h3>Open issues</h3>";
-
-		data.open.forEach((repo,i) =>{
-			let renderTemplate = template(repo,i);
-			this.element.innerHTML += renderTemplate;
-		})
-
-		this.element.innerHTML += "<h3>closed issues</h3>";
-
-		data.closed.forEach((repo,i) =>{
-			let renderTemplate = template(repo,i);
-			this.element.innerHTML += renderTemplate;
-		})
+		if(data.closed.length > 0){
+			this.element.innerHTML += `<h3>closed issues</h3>`;
+			this.element.innerHTML += data.closed.map(mapIssues).join('');
+		}else{
+			this.element.innerHTML += `<h3>there are no closed issues 👍</h3>`;
+		}
+	},
+	loading(){
+		this.element.innerHTML = `
+			<div class="spinner">
+			  <div class="double-bounce1"></div>
+			  <div class="double-bounce2"></div>
+			</div>
+		`
+	},
+	error(error){
+		console.log(error);
+		this.element.innerHTML = `
+			<article class="error">
+				<h2>😢Something seems to have gone wrong😢</h2>
+				<p>${error}</p>
+				<a href="">return to the forks page</a>
+			</article>
+		`
 	}
 }
 

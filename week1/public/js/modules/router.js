@@ -8,12 +8,20 @@ function checkRoute(){
 			};
 			break;
 		default:
-			return {
-				link: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9),
-				link_closed: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9) + "?state=closed",
-				user: true,
-				userName: route.split("#user/")[1].split("/")[0]
-			};
+			if(route.split("/")[0] === "#user"){
+				return {
+					//uit de lokale data wordt op basis van de key in de url de nieuwe apilink opgehaald
+					link: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9),
+					link_closed: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9) + "?state=closed",
+					user: true,
+					userName: route.split("#user/")[1].split("/")[0]
+				}
+			}else{
+				return {
+					link: undefined,
+					user: undefined
+				}
+			}
 	}
 }
 

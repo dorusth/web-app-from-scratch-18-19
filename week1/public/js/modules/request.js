@@ -7,7 +7,7 @@ function requestData(routeData){
 				const data = JSON.parse(request.responseText);
 				resolve(data);
 			}else{
-				console.log("error");
+				reject(request.status);
 			}
 		}
 		request.open('GET', routeData, true);
