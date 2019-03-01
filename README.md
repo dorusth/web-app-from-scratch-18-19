@@ -1,56 +1,94 @@
-# Web App From Scratch @cmda-minor-web 18-19
-
-In dit vak gaan we een web app maken zonder frameworks of onnodige libraries, dus zoveel mogelijk met native HTML, CSS & JavaScript. Het eindproduct is een modulair opgezet prototype voor een single page web app. Data wordt opgehaald uit een externe API, waar nodig gemanipuleerd en vervolgens getoond in de Web App. Je leert hoe je structuur aanbrengt in je code en hoe je hiermee 'from scratch' een (prototype voor een) web app maakt. Met deze kennis begrijp je daarnaast beter hoe bestaande api’s, libraries en frameworks werken.
-
-## Leerdoelen
-- _Je kan structuur aanbrengen in je code door patterns toe te passen. Je kan de keuze voor de gekozen patterns beargumenteren_
-- _Je kan data ophalen, manipuleren en dynamisch omzetten naar html elementen mbv templating._
-- _Je begrijpt hoe je middels asynchrone code met een externe API kan werken._
-- _Je begrijpt hoe je states in je applicaties kan managen en stelt de gebruiker op de hoogte van states waar nodig._
-
-[Rubric](https://docs.google.com/spreadsheets/d/e/2PACX-1vTjZGWGPC_RMvTMry8YW5XOM79GEIdgS7I5JlOe6OeeOUdmv7ok1s9jQhzojNE4AsyzgL-jJCbRj1LN/pubhtml?gid=0&single=true)
-
-## Lesprogramma
-
-### Week 1 - Hello API 🐒
-
-Doel: Data ophalen uit een API en renderen in een overzichtspagina.
-
-[Opdrachten](https://drive.google.com/open?id=1OVhWQNaCgSluYviTKKWcApkyPd23xow1PiExb8GYANM)
-
-[Slides](https://drive.google.com/open?id=1Rjl9xqXoKniQSRJPdkU1O5YwWC33SJK8KiV0a-H_xZU)
-
-### Week 2 - Design and Refactor 🛠
-
-Doel: Breakdown maken van de web app. Routes en states toevoegen. Detailpagina renderen.
-
-[Opdrachten](https://drive.google.com/open?id=1GMDTdW3LycAYpZSFI6gk_lrKrx8-zLWrNh69aaVEH5Y)
-
-[Slides](https://drive.google.com/open?id=1IqQeu1m0dQiSC_KCvrn8eencAgtYe7X6qT-gm0n9Bmc)
-
-### Week 3 - Wrapping up 🎁
-
-Doel: Data manipuleren. Code splitsen in modules. Reflecteren op eindresultaat.
-
-[Opdrachten](https://drive.google.com/open?id=13pKQu72pshaEzKw9q5JHLa-aop85nMP6nDCdqioWjoQ)
-
-[Slides](https://drive.google.com/open?id=1BSzGYNLMgtHD4HRnK7f0DgyTv4Pg3xsQwD_eYNo7v0Y)
+# WAFS - GitHub api repos
 
 
-<!-- Add a link to your live demo in Github Pages 🌐-->
+<!-- Add a link to your live demo in GitHub Pages 🌐-->
+## Live demo
+[Live demo](https://dorusth.github.io/web-app-from-scratch-18-19/week1/) | [Repo](https://github.com/dorusth/web-app-from-scratch-18-19/tree/master/week1)
 
 <!-- ☝️ replace this description with a description of your own work -->
+## GitHub repos
+In this project I used the GitHub API to fetch data about the forks of the "web app from scratch" repo on GitHub and display the issues of every fork on a details page.
 
 <!-- Add a nice image here at the end of the week, showing off your shiny frontend 📸 -->
+![app](./week1/app.png)
 
 <!-- Maybe a table of contents here? 📚 -->
+## table of contents
+- [Installation](#Installation)
+- [Features](#Features)
+- [Actor diagram](#Actor-diagram)
+- [interaction diagram](#Interaction-diagram)
+- [API](#API)
+- [To-do/Done list](#To-do-/-Done-list)
 
 <!-- How about a section that describes how to install this project? 🤓 -->
+## Installation
+this project doesn't have any dependencties so you can clone and run it with:
+```bash
+$ git clone https://github.com/dorusth/web-app-from-scratch-18-19.git
+```
+and/or download the files and open the index.html file
 
 <!-- ...but how does one use this project? What are its features 🤔 -->
+## Features
+- Forks overview
+- Details page with open and closed issues
+- hash routing
+- Error handeling
+- Loading state
+
+## Actor diagram
+![actor diagram](./week1/actor_diagram.png)
+
+## Interaction diagram
+![interaction diagram](./week1/interaction_diagram.png)
 
 <!-- What external data source is featured in your project and what are its properties 🌠 -->
+## API
+For this project the [GitHub API](https://developer.github.com/v3/) as data source.
+By default the API only returns 30 entities with each request unles defined otherwise in the endpoint of the API.
+I've used a promise to request the data from the api and use it in the app.
+```javascript
+function requestData(routeData){
+	return new Promise((resolve, reject) =>{
+		const request = new XMLHttpRequest();
+
+		request.onload = () => {
+			if (request.status >= 200 && request.status < 400) {
+				const data = JSON.parse(request.responseText);
+				resolve(data);
+			}else{
+				reject(request.status);
+			}
+		}
+		request.open('GET', routeData, true);
+		request.send();
+	});
+}
+```
 
 <!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
+## To-do / Done list
+- [x] Get data from api
+- [x] Use promise to request data
+- [x] Input to change user
+- [x] Render data to HTML
+- [x] Style rendered data
+- [x] Research data to use
+- [x] Add interactions
+- [x] Multiple pages
+- [x] Routes
+- [x] Add/use open and closed issue Routes
+- [x] Add states
+- [x] Manipulate Data
+- [x] Structure code in modules
+- [x] Refactor rendering and route handeling
+- [ ] Option to switch between repos
 
+
+## other sources
+
+Google developers  [js promises docs](https://developers.google.com/web/fundamentals/primers/promises)
 <!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
+
+[MIT](LICENCE) © [Dorus ten Haaf](https://dorustenhaaf.com)
