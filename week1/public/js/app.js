@@ -1,4 +1,4 @@
 'use strict'
 import checkRoute from "./modules/router.js";
-import handleRoute from "./modules/handleRoute.js";
-handleRoute(checkRoute());
+import handler from "./modules/handler.js";
+handler(checkRoute());

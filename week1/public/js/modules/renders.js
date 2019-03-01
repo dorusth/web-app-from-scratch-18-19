@@ -31,6 +31,7 @@ const renders = {
 				 </article>
 			 `)
 		}
+		//the app checks if there are issues to render and gives feedback if there are no issus
 		if(data.open.length > 0){
 			this.element.innerHTML = `<h3>Open issues</h3>`;
 			this.element.innerHTML += data.open.map(mapIssues).join('');
@@ -46,6 +47,7 @@ const renders = {
 		}
 	},
 	loading(){
+		console.log(this);
 		this.element.innerHTML = `
 			<div class="spinner">
 			  <div class="double-bounce1"></div>

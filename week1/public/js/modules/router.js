@@ -10,7 +10,7 @@ function checkRoute(){
 		default:
 			if(route.split("/")[0] === "#user"){
 				return {
-					//uit de lokale data wordt op basis van de key in de url de nieuwe apilink opgehaald
+					//from the localStorage a api endpoint is selected based of the key in the hash
 					link: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9),
 					link_closed: JSON.parse(localStorage.gitData)[route.split("#user/")[1].split("/")[1]].issues_url.slice(0, -9) + "?state=closed",
 					user: true,
@@ -18,6 +18,7 @@ function checkRoute(){
 				}
 			}else{
 				return {
+					//of the link doesn't exist the router returns undefined values to the handler
 					link: undefined,
 					user: undefined
 				}
